@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://waltercosta3528.github.io/short-stay-com-margem/sitemap.xml
