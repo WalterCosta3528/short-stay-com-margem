@@ -10,7 +10,9 @@ const BUY_LINK = "https://pay.kiwify.com.br/UiFhUNS";
 const TRACKING = {
   GA4_ID: "",   // ex.: "G-XXXXXXXXXX"
   GTM_ID: "",   // ex.: "GTM-XXXXXXX"
-  META_PIXEL_ID: "" // ex.: "123456789012345"
+  META_PIXEL_ID: "", // ex.: "123456789012345"
+  ADS_ID: "AW-18531501453",
+  ADS_BUY_CLICK: "AW-18531501453/Tu9hCMakmKYdEI2LwYRF" // conversão "Clique em Comprar"
 };
 
 /* ============================================================ */
@@ -26,7 +28,10 @@ const TRACKING = {
       var where = a.getAttribute("data-buy");
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: "buy_click", buy_position: where });
-      if (typeof window.gtag === "function") window.gtag("event", "buy_click", { position: where });
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "buy_click", { position: where });
+        if (TRACKING.ADS_BUY_CLICK) window.gtag("event", "conversion", { send_to: TRACKING.ADS_BUY_CLICK });
+      }
       if (typeof window.fbq === "function") window.fbq("track", "InitiateCheckout");
     });
   });
@@ -81,11 +86,14 @@ const TRACKING = {
     window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
     addScript("https://www.googletagmanager.com/gtm.js?id=" + encodeURIComponent(TRACKING.GTM_ID));
   }
-  if (TRACKING.GA4_ID) {
+  var gtagId = TRACKING.GA4_ID || TRACKING.ADS_ID;
+  if (gtagId) {
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag("js", new Date()); window.gtag("config", TRACKING.GA4_ID);
-    addScript("https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(TRACKING.GA4_ID));
+    window.gtag("js", new Date());
+    if (TRACKING.GA4_ID) window.gtag("config", TRACKING.GA4_ID);
+    if (TRACKING.ADS_ID) window.gtag("config", TRACKING.ADS_ID);
+    addScript("https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(gtagId));
   }
   if (TRACKING.META_PIXEL_ID) {
     !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, doc, "script", "https://connect.facebook.net/en_US/fbevents.js");
