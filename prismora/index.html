@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0b0a1f">
+<title>PRISMORA — Dobre a luz. Acenda tudo.</title>
+<meta name="description" content="Prismora: roguelite de puzzle de luz. Posicione espelhos, prismas e lentes, acenda cristais e quebre as regras com relíquias.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 29 27H3z' fill='%23140f3d' stroke='%238a7dff' stroke-width='2'/%3E%3Cpath d='M16 11 22 22H10z' fill='%23ff4d6d'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+<div id="app">
+  <section id="menu" class="screen">
+    <div class="hero">
+      <div class="prism-logo" aria-hidden="true"><i></i><i></i><i></i></div>
+      <h1 id="m-title">PRISMORA</h1>
+      <p id="m-tag" class="tag"></p>
+    </div>
+    <nav class="menu-btns" id="menu-btns"></nav>
+    <p class="foot" id="m-foot"></p>
+  </section>
+
+  <section id="game" class="screen hidden">
+    <header class="hud">
+      <button id="btn-pause" class="icon-btn" aria-label="Menu">☰</button>
+      <div class="hud-cell"><span class="lbl" id="l-round"></span><b id="v-round">1</b></div>
+      <div class="hud-cell"><span class="lbl" id="l-target"></span><b id="v-target">0</b></div>
+      <div class="hud-cell score"><span class="lbl" id="l-score"></span><b id="v-score">0</b></div>
+      <div class="hud-cell"><span class="lbl" id="l-lives"></span><b id="v-lives" class="lives"></b></div>
+    </header>
+    <main class="play">
+      <div class="boardwrap"><canvas id="board" aria-label="Tabuleiro"></canvas><div id="hint" class="hint hidden"></div></div>
+      <aside class="side">
+        <div class="relics" id="relics"></div>
+        <div class="tray-title"><span id="l-hand"></span><span id="par" class="par"></span></div>
+        <div class="tray" id="tray"></div>
+        <div class="actions">
+          <button id="btn-clear" class="btn ghost"></button>
+          <button id="btn-reroll" class="btn ghost"></button>
+          <button id="btn-fire" class="btn fire"></button>
+        </div>
+      </aside>
+    </main>
+  </section>
+</div>
+<div id="modal-root"></div>
+<div id="toast-root" aria-live="polite"></div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
